@@ -1,5 +1,6 @@
 package agency.five.codebase.android.movieapp.ui.component
 
+import agency.five.codebase.android.movieapp.R
 import agency.five.codebase.android.movieapp.ui.theme.GreenProgressBar
 import agency.five.codebase.android.movieapp.ui.theme.GreenProgressBarBackground
 import androidx.compose.animation.core.animateFloatAsState
@@ -18,15 +19,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
+private const val STARTING_POSITION_OF_CIRCLE = -90f
+private const val SWEEP_ANGLE = 360f
 
 @Composable
 fun CircularProgressBar(
     modifier: Modifier = Modifier,
     score: Double,
+    fontSize: TextUnit = dimensionResource(id = R.dimen.user_score_font_size).value.sp,
+    color: Color = Color.Green,
+    strokeWidth: Dp = dimensionResource(id = R.dimen.padding_small)
 ) {
     val animationPlayed = remember { mutableStateOf(false) }
     val currentPercentage = animateFloatAsState(
@@ -35,40 +45,38 @@ fun CircularProgressBar(
             durationMillis = 650
         )
     )
-
     LaunchedEffect(key1 = true) {
         animationPlayed.value = true
     }
-
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .size(35.dp * 2f)
+            .size(dimensionResource(id = R.dimen.movie_canvas_box_size) * 2f)
     ) {
         Canvas(
             modifier = modifier
-                .padding(2.dp)
-                .size(30.dp * 2f)
+                .padding(dimensionResource(id = R.dimen.padding_extra_small))
+                .size(dimensionResource(id = R.dimen.movie_canvas_size) * 2f)
         ) {
             drawArc(
                 color = GreenProgressBarBackground,
-                startAngle = -90f,
-                sweepAngle = 360f,
+                startAngle = STARTING_POSITION_OF_CIRCLE,
+                sweepAngle = SWEEP_ANGLE,
                 useCenter = false,
-                style = Stroke(8.dp.toPx(), cap = StrokeCap.Round)
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
             )
             drawArc(
                 color = GreenProgressBar,
-                startAngle = -90f,
-                sweepAngle = 360 * currentPercentage.value,
+                startAngle = STARTING_POSITION_OF_CIRCLE,
+                sweepAngle = SWEEP_ANGLE * currentPercentage.value,
                 useCenter = false,
-                style = Stroke(8.dp.toPx(), cap = StrokeCap.Round)
+                style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
             )
         }
         Text(
             text = (score * 10).toString(),
-            fontSize = 15.sp,
             color = Color.Black,
+            fontSize = fontSize,
             fontWeight = FontWeight.Bold
         )
     }

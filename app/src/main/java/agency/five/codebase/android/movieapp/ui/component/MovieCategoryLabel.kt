@@ -1,6 +1,7 @@
 package agency.five.codebase.android.movieapp.ui.component
 
 import agency.five.codebase.android.movieapp.R
+import agency.five.codebase.android.movieapp.ui.theme.Spacing
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +37,6 @@ fun MovieCategoryLabel(
     if (movieCategoryLabelViewState.isSelected) {
         Column(
             modifier = modifier
-                .padding(5.dp)
                 .width(intrinsicSize = IntrinsicSize.Max)
                 .clickable(onClick = onClick)
         ) {
@@ -43,17 +44,18 @@ fun MovieCategoryLabel(
                 text = selectTextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
+                fontSize = dimensionResource(id = R.dimen.movie_category_label_font_size).value.sp,
                 modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_small))
                     .fillMaxWidth()
             )
             Spacer(
                 modifier = Modifier
-                    .size(5.dp)
+                    .size(dimensionResource(id = R.dimen.movie_label_spacer_size))
             )
             Divider(
                 color = Color.Black,
-                thickness = 5.dp,
+                thickness = dimensionResource(id = R.dimen.movie_label_thickness),
                 modifier = Modifier
                     .fillMaxWidth()
             )
@@ -62,9 +64,9 @@ fun MovieCategoryLabel(
         Text(
             text = selectTextSource(movieCategoryLabelViewState = movieCategoryLabelViewState),
             color = Color.Gray,
-            fontSize = 16.sp,
+            fontSize = dimensionResource(id = R.dimen.movie_category_label_font_size).value.sp,
             modifier = modifier
-                .padding(5.dp)
+                .padding(dimensionResource(id = R.dimen.padding_small))
                 .clickable(onClick = onClick)
         )
     }
@@ -78,10 +80,6 @@ fun selectTextSource(movieCategoryLabelViewState: MovieCategoryLabelViewState): 
     }
 }
 
-fun onMovieCategoryLabelClick() {
-
-}
-
 @Preview
 @Composable
 fun MovieCategoryLabelPreview() {
@@ -91,8 +89,8 @@ fun MovieCategoryLabelPreview() {
     val categoryViewState2 = MovieCategoryLabelViewState(1, false, inputText)
     Row {
         MovieCategoryLabel(movieCategoryLabelViewState = categoryViewState1,
-            { onMovieCategoryLabelClick() })
+            { })
         MovieCategoryLabel(movieCategoryLabelViewState = categoryViewState2,
-            { onMovieCategoryLabelClick() })
+            { })
     }
 }
