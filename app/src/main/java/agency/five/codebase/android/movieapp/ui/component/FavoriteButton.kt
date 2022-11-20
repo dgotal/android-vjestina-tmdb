@@ -5,13 +5,10 @@ import agency.five.codebase.android.movieapp.ui.theme.Blue
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
@@ -21,26 +18,23 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FavoriteButton(
-    isSelected: Boolean = false,
-    onFavoriteButtonClick: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    isSelected: Boolean = false,
+    onFavoriteButtonClick: () -> Unit,
 ) {
-    Image(
-        painter = painterResource(id = if (isSelected) R.drawable.heart_icon_selected else R.drawable.heart_icon_notselected),
+    Image(painter = painterResource(id = if (isSelected) R.drawable.heart_icon_selected else R.drawable.heart_icon_notselected),
         contentDescription = null,
         modifier = modifier
-            .clickable { onFavoriteButtonClick(isSelected.not()) }
+            .clickable { onFavoriteButtonClick() }
             .size(32.dp)
             .background(Blue.copy(alpha = 0.6F), CircleShape)
             .clip(CircleShape)
             .padding(
-                start = dimensionResource(id = R.dimen.padding_small), end = dimensionResource(
-                    id = R.dimen.padding_small
-                ), top = dimensionResource(id = R.dimen.padding_medium), bottom = dimensionResource(
-                    id = R.dimen.padding_medium
-                )
-            )
-    )
+                start = dimensionResource(id = R.dimen.padding_small),
+                end = dimensionResource(id = R.dimen.padding_small),
+                top = dimensionResource(id = R.dimen.padding_medium),
+                bottom = dimensionResource(id = R.dimen.padding_medium)
+            ))
 }
 
 @Preview

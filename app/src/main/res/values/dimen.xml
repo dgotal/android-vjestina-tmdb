@@ -3,6 +3,7 @@
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_width">150dp</dimen>
     <dimen name="card_height">270dp</dimen>
+    <dimen name="card_image_weight" type="float">0.6dp</dimen>
     <dimen name="card_corner_radius">18dp</dimen>
     <dimen name="card_padding">10dp</dimen>
     <dimen name="actor_name">17sp</dimen>

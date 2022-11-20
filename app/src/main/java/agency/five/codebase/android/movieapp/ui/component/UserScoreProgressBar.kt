@@ -24,25 +24,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private const val STARTING_POSITION_OF_CIRCLE = -90f
 private const val SWEEP_ANGLE = 360f
+private const val DURATION_MILLIS = 650
+private const val TO_GRADE = 10
 
 @Composable
 fun CircularProgressBar(
     modifier: Modifier = Modifier,
     score: Double,
     fontSize: TextUnit = dimensionResource(id = R.dimen.user_score_font_size).value.sp,
-    color: Color = Color.Green,
     strokeWidth: Dp = dimensionResource(id = R.dimen.padding_small)
 ) {
     val animationPlayed = remember { mutableStateOf(false) }
     val currentPercentage = animateFloatAsState(
         targetValue = (if (animationPlayed.value) score.toFloat() else 0f),
         animationSpec = tween(
-            durationMillis = 650
+            durationMillis = DURATION_MILLIS
         )
     )
     LaunchedEffect(key1 = true) {
@@ -74,7 +74,7 @@ fun CircularProgressBar(
             )
         }
         Text(
-            text = (score * 10).toString(),
+            text = (score * TO_GRADE).toString(),
             color = Color.Black,
             fontSize = fontSize,
             fontWeight = FontWeight.Bold

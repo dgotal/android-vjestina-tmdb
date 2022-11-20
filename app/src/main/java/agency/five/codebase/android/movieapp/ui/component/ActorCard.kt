@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
@@ -41,7 +42,7 @@ fun ActorCard(
                 contentDescription = "${actorCardViewState.name} profile image",
                 Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(id = R.dimen.actor_image_height)),
+                    .weight(dimensionResource(id = R.dimen.card_image_weight).value),
             )
             Text(
                 text = actorCardViewState.name,
@@ -65,7 +66,7 @@ fun ActorCard(
     }
 }
 
-@Preview
+@Preview(name = "phone", device = "spec:shape=Normal,width=360,height=640,unit=dp,dpi=480")
 @Composable
 private fun ActorCardPreview() {
     val actor: Actor = MoviesMock.getActor()
@@ -78,11 +79,11 @@ private fun ActorCardPreview() {
         actorCardViewState = mockActorCardViewState,
         modifier = Modifier
             .size(
-                width = dimensionResource(id = R.dimen.card_width),
-                height = dimensionResource(id = R.dimen.card_height)
+                width = 150.dp,
+                height = 270.dp
             )
             .padding(
-                dimensionResource(id = R.dimen.card_padding)
+                10.dp
             ),
     )
 }

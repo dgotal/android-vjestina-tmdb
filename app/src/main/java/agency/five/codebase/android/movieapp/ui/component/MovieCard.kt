@@ -2,12 +2,8 @@ package agency.five.codebase.android.movieapp.ui.component
 
 import agency.five.codebase.android.movieapp.mock.MoviesMock.getMoviesList
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -18,19 +14,18 @@ import coil.compose.AsyncImage
 
 data class MovieCardViewState(
     val imageUrl: String?,
-    val movieId: Int,
     val isFavorite: Boolean,
 )
 
 @Composable
 fun MovieCard(
     movieCardViewState: MovieCardViewState,
-    onMovieCardClick: () -> Unit,
+    onClick: () -> Unit,
     onFavoriteButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.clickable { onMovieCardClick() },
+        modifier = modifier.clickable { onClick() },
         shape = MaterialTheme.shapes.medium,
     ) {
         Box()
@@ -43,11 +38,9 @@ fun MovieCard(
                 contentScale = ContentScale.FillWidth
             )
             FavoriteButton(
-                modifier = Modifier
-                    .padding(9.dp)
-                    .size(30.dp),
+                modifier = Modifier,
                 isSelected = movieCardViewState.isFavorite,
-                onFavoriteButtonClick = { onFavoriteButtonClick() }
+                onFavoriteButtonClick = onFavoriteButtonClick
             )
         }
     }
@@ -55,18 +48,32 @@ fun MovieCard(
 
 @Preview
 @Composable
-fun MovieCardPreview() {
-    val movie = getMoviesList()[1]
-    var onCardClick by remember { mutableStateOf(true) }
-    var onFavoriteButtonClick by remember { mutableStateOf(true) }
+private fun MovieCardPreview() {
+    val movieCardViewState = remember {
+        val mockMovie = getMoviesList()[1]
 
+        mutableStateOf(
+            MovieCardViewState(
+                imageUrl = mockMovie.imageUrl,
+                isFavorite = mockMovie.isFavorite,
+            )
+        )
+    }
+    val movieCardModifier = Modifier
+        .padding(4.dp)
+        .size(
+            width = 170.dp,
+            height = 230.dp
+        )
     MovieCard(
-        movieCardViewState = MovieCardViewState(
-            imageUrl = movie.imageUrl,
-            movieId = movie.id, isFavorite = movie.isFavorite
-        ),
-        modifier = Modifier.size(200.dp, 295.dp),
-        onMovieCardClick = { onCardClick = !onCardClick },
-        onFavoriteButtonClick = { onFavoriteButtonClick = !onFavoriteButtonClick },
+        movieCardViewState = movieCardViewState.value,
+        modifier = movieCardModifier,
+        onClick = { },
+        onFavoriteButtonClick = {
+            val newMovieCardViewState = movieCardViewState.value.copy(
+                isFavorite = !(movieCardViewState.value.isFavorite)
+            )
+            movieCardViewState.value = newMovieCardViewState
+        }
     )
 }
