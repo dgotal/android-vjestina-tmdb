@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_width">150dp</dimen>
+    <dimen name="card_height">270dp</dimen>
+    <dimen name="card_image_weight" type="float">0.6dp</dimen>
+    <dimen name="card_corner_radius">18dp</dimen>
+    <dimen name="card_padding">10dp</dimen>
+    <dimen name="actor_name">17sp</dimen>
+    <dimen name="actor_image_height">170dp</dimen>
+    <dimen name="character_name">12sp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+    <dimen name="crew_job_font_size">12sp</dimen>
+    <dimen name="crew_name_font_size">16sp</dimen>
+    <dimen name="movie_category_label_font_size">16sp</dimen>
+    <dimen name="movie_label_spacer_size">5dp</dimen>
+    <dimen name="movie_label_thickness">5dp</dimen>
+    <dimen name="user_score_font_size">16sp</dimen>
+    <dimen name="padding_extra_small">2dp</dimen>
+    <dimen name="movie_canvas_size">30dp</dimen>
+    <dimen name="movie_canvas_box_size">35dp</dimen>
+</resources>
