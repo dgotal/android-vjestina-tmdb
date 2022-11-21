@@ -33,8 +33,8 @@ private const val TO_GRADE = 10
 
 @Composable
 fun CircularProgressBar(
-    modifier: Modifier = Modifier,
     score: Double,
+    modifier: Modifier = Modifier,
     fontSize: TextUnit = dimensionResource(id = R.dimen.user_score_font_size).value.sp,
     strokeWidth: Dp = dimensionResource(id = R.dimen.padding_small)
 ) {

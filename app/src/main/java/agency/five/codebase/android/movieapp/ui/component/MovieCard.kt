@@ -4,6 +4,7 @@ import agency.five.codebase.android.movieapp.mock.MoviesMock.getMoviesList
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -17,15 +18,17 @@ data class MovieCardViewState(
     val isFavorite: Boolean,
 )
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MovieCard(
     movieCardViewState: MovieCardViewState,
-    onClick: () -> Unit,
+    onMovieCardClick: () -> Unit,
     onFavoriteButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.clickable { onClick() },
+        modifier = modifier,
+        onClick = onMovieCardClick,
         shape = MaterialTheme.shapes.medium,
     ) {
         Box()
@@ -68,7 +71,7 @@ private fun MovieCardPreview() {
     MovieCard(
         movieCardViewState = movieCardViewState.value,
         modifier = movieCardModifier,
-        onClick = { },
+        onMovieCardClick = { },
         onFavoriteButtonClick = {
             val newMovieCardViewState = movieCardViewState.value.copy(
                 isFavorite = !(movieCardViewState.value.isFavorite)
